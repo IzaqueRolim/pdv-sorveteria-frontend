@@ -1,6 +1,6 @@
-import FormLote from "../../components/formLote";
-import ListLote from "../../components/listLote";
-
+import React from "react";
+import FormLote from "../../components/formLote/index.tsx";
+import ListLote from "../../components/listLote/index.tsx";
 function Lotes() {
     return (
         <div>

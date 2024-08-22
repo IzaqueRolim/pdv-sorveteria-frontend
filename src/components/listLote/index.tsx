@@ -1,14 +1,24 @@
 import React, { useContext } from 'react';
-import { ProdutoContext } from '../../context/ProdutoContext';
-import { LoteContext } from '../../context/LoteContext';
-import GenericTable from '../genericTable';
+import { ProdutoContext, ProdutoContextType } from '../../context/ProdutoContext.ts';
+import { LoteContext, LoteContextType, Lote } from '../../context/LoteContext.ts';
+import GenericTable from '../genericTable/index.tsx';
+
+// Defina o tipo das colunas da tabela
+interface ColumnType {
+    title: string;
+    key: keyof Lote;
+}
 
 function ListLote() {
-    const { products } = useContext(ProdutoContext);
-    const { lotes, setLotes } = useContext(LoteContext)
+    const { products } = useContext<ProdutoContextType>(ProdutoContext);
+    const { lotes } = useContext<LoteContextType>(LoteContext);
 
-    const columns = [
-        { title: "Produto", key: 'produto' },
+    const columns: any[] = [
+        {
+            title: "Produto", key: 'produto.name', render: (lote: Lote) => (
+                <span>{lote.produto?.name || 'Produto não encontrado'}</span>
+            )
+        },
         { title: "Quantidade", key: 'quantidade' },
         { title: "Preço Unitário", key: 'precoUnitario' },
         { title: "Dia de Compra", key: 'diaCompra' }
@@ -38,13 +48,13 @@ const styles = {
     },
     table: {
         width: '100%',
-        borderCollapse: 'collapse',
+        borderCollapse: 'collapse' as 'collapse',
     },
     th: {
         padding: '10px',
         backgroundColor: '#007bff',
         color: '#fff',
-        textAlign: 'left',
+        textAlign: 'left' as 'left',
         borderBottom: '2px solid #ddd',
     },
     td: {

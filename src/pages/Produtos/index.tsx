@@ -1,6 +1,6 @@
-import FormProduct from "../../components/formProduct";
-import ListProduct from "../../components/listProduct";
-
+import FormProduct from "../../components/formProduct/index.tsx";
+import React from "react";
+import ListProduct from "../../components/listProduct/index.tsx";
 function Produtos() {
     return (
         <div>

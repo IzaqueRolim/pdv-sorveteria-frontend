@@ -1,6 +1,17 @@
 import React from 'react';
 
-function GenericTable({ columns, data }) {
+interface ColumnType<T> {
+    title: string;
+    key: keyof T;
+    render?: (row: T) => React.ReactNode;
+}
+
+interface GenericTableProps<T> {
+    columns: ColumnType<T>[];
+    data: T[];
+}
+
+function GenericTable<T>({ columns, data }: GenericTableProps<T>) {
     return (
         <div style={styles.container}>
             <table style={styles.table}>
@@ -16,7 +27,7 @@ function GenericTable({ columns, data }) {
                         <tr key={rowIndex}>
                             {columns.map((column, colIndex) => (
                                 <td key={colIndex} style={styles.td}>
-                                    {column.render ? column.render(row) : row[column.key]}
+                                    {column.render ? column.render(row) : row[column.key] as unknown as React.ReactNode}
                                 </td>
                             ))}
                         </tr>
@@ -26,8 +37,6 @@ function GenericTable({ columns, data }) {
         </div>
     );
 }
-
-
 
 const styles = {
     container: {
@@ -40,13 +49,13 @@ const styles = {
     },
     table: {
         width: '100%',
-        borderCollapse: 'collapse',
+        borderCollapse: 'collapse' as 'collapse',
     },
     th: {
         padding: '10px',
         backgroundColor: '#007bff',
         color: '#fff',
-        textAlign: 'left',
+        textAlign: 'left' as 'left',
         borderBottom: '2px solid #ddd',
     },
     td: {

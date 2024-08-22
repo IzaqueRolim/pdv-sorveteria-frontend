@@ -1,19 +1,21 @@
-import { useContext } from "react";
-import { ReceitaContext } from "../../context/ReceitaContext";
+import React, { useContext } from "react";
+import { Receita, ReceitaContext, ReceitaContextType } from "../../context/ReceitaContext.ts";
 
 function ListReceitas() {
-    const { receitas } = useContext(ReceitaContext);
-
+    const { receitas } = useContext<ReceitaContextType>(ReceitaContext);
     return (
         <div style={styles.list}>
-            <h3 style={styles.title}>Receitas</h3>
+            <h3 style={{
+                textAlign: 'center',
+                marginBottom: '20px',
+            }}>Receitas</h3>
             {receitas.map((receita, index) => (
                 <div key={index} style={styles.receitaItem}>
                     <h4>{receita.name} - Preço: R$ {receita.preco}</h4>
                     <ul>
                         {receita.produtos.map((produto, i) => (
                             <li key={i}>
-                                {produto.produto} - {produto.quantidade} {produto.unidadeMedida}
+                                {produto.produto.name} - {produto.quantidade} {produto.produto.unitMedid}
                             </li>
                         ))}
                     </ul>

@@ -1,20 +1,23 @@
-import { useContext, useState } from "react"
-import { ProdutoContext } from "../../context/ProdutoContext"
-import { ReceitaContext } from "../../context/ReceitaContext";
+
+import React from "react";
+import { ProdutoContext, ProdutoContextType } from "../../context/ProdutoContext.ts"
+import { ProdutoSelecionado, ReceitaContext, Receita, ReceitaContextType } from "../../context/ReceitaContext.ts";
+
+import { useContext, useState, ChangeEvent, FormEvent } from "react";
 
 function FormReceita() {
-    const [receita, setReceita] = useState({ name: "", produtos: [], preco: "" });
-    const [produtoSelecionado, setProdutoSelecionado] = useState({ produto: "", quantidade: "", unidadeMedida: "" });
+    const [receita, setReceita] = useState<Receita>({ name: "", produtos: [], preco: "" });
+    const [produtoSelecionado, setProdutoSelecionado] = useState<ProdutoSelecionado>({ produto: "", quantidade: "", unidadeMedida: "" });
 
-    const { products } = useContext(ProdutoContext);
-    const { receitas, setReceitas } = useContext(ReceitaContext);
+    const { products } = useContext(ProdutoContext) as ProdutoContextType;
+    const { receitas, setReceitas } = useContext(ReceitaContext) as ReceitaContextType;
 
-    const handleInputChange = (event) => {
+    const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
         const { name, value } = event.target;
         setReceita({ ...receita, [name]: value });
     };
 
-    const handleProdutoChange = (event) => {
+    const handleProdutoChange = (event: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
         const { name, value } = event.target;
         setProdutoSelecionado({ ...produtoSelecionado, [name]: value });
     };
@@ -27,18 +30,27 @@ function FormReceita() {
         setProdutoSelecionado({ produto: "", quantidade: "", unidadeMedida: "" });
     };
 
-    const handleSubmit = (event) => {
+    const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         if (receita.produtos.length > 0) {
             setReceitas([...receitas, receita]);
-            setReceita({ name: "", produtos: [] });
+            setReceita({ name: "", produtos: [], preco: "" });
             return;
         }
-        alert("Insira pelo menos um ingrediente")
+        alert("Insira pelo menos um ingrediente");
     };
 
     return (
-        <form onSubmit={handleSubmit} style={styles.form}>
+        <form onSubmit={handleSubmit} style={{
+            display: 'flex',
+            flexDirection: 'column',
+            width: '300px',
+            margin: '0 auto',
+            padding: '20px',
+            border: '1px solid #ccc',
+            borderRadius: '8px',
+            backgroundColor: '#f9f9f9',
+        }}>
             <div style={styles.inputGroup}>
                 <label style={styles.label}>Nome da Receita:</label>
                 <input
@@ -94,10 +106,10 @@ function FormReceita() {
                 Adicionar Produto
             </button>
 
-            <div style={styles.productList}>
+            <div>
                 <h4>Produtos na Receita:</h4>
                 {receita.produtos.map((produto, index) => (
-                    <div key={index} style={styles.productItem}>
+                    <div key={index}>
                         <span>{produto.produto} - {produto.quantidade} {products.find(product => product.name === produto.produto)?.unitMedid}</span>
                     </div>
                 ))}
@@ -106,23 +118,13 @@ function FormReceita() {
             <button type="submit" style={styles.button}>
                 Adicionar Receita
             </button>
-        </form>
+        </form >
     );
 }
 
 
-
 const styles = {
-    form: {
-        display: 'flex',
-        flexDirection: 'column',
-        width: '300px',
-        margin: '0 auto',
-        padding: '20px',
-        border: '1px solid #ccc',
-        borderRadius: '8px',
-        backgroundColor: '#f9f9f9',
-    },
+
     inputGroup: {
         marginBottom: '15px',
     },

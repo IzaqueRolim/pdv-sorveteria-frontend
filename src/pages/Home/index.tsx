@@ -1,12 +1,12 @@
 import { useNavigate } from "react-router-dom";
 import React, { useState } from 'react';
-import Produtos from "../Produtos";
-import Receitas from "../Receitas";
-import Lotes from "../Lotes";
-import Vendas from "../Vendas";
+import Produtos from "../Produtos/index.tsx";
+import Receitas from "../Receitas/index.tsx";
+import Lotes from "../Lotes/index.tsx";
+import Vendas from "../Vendas/index.tsx";
 
 function Home() {
-    const [indexScreen, setIndexScreen] = useState(0); 
+    const [indexScreen, setIndexScreen] = useState(0);
 
     return (
         <div style={styles.wrapper}>
@@ -44,7 +44,8 @@ function Home() {
     );
 }
 
-const styles = {
+const styles: { [key: string]: React.CSSProperties } = {
+
     wrapper: {
         display: 'flex',
     },
