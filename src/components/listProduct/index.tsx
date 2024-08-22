@@ -95,10 +95,21 @@ function ListProduct() {
         }
     ];
 
+    const getRowStyle = (row: any) => {
+        return {
+            backgroundColor: row.quantidadeEmEstoque > 24 
+            ? '#d4edda' // Verde claro
+            : row.quantidadeEmEstoque >= 12 
+            ? '#fff3cd' // Amarelo claro
+            : '#f8d7da' // Vermelho claro
+        };
+    };
+
+
 
     return (
         <div>
-            <GenericTable columns={columns} data={products} />
+            <GenericTable columns={columns} data={products} getRowStyle={getRowStyle} />
         </div>
     );
 }

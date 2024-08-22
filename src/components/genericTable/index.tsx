@@ -9,9 +9,10 @@ interface ColumnType<T> {
 interface GenericTableProps<T> {
     columns: ColumnType<T>[];
     data: T[];
+    getRowStyle?: (row: T) => React.CSSProperties; // Função opcional para definir o estilo da linha
 }
 
-function GenericTable<T>({ columns, data }: GenericTableProps<T>) {
+function GenericTable<T>({ columns, data, getRowStyle }: GenericTableProps<T>) {
     return (
         <div style={styles.container}>
             <table style={styles.table}>
@@ -24,7 +25,7 @@ function GenericTable<T>({ columns, data }: GenericTableProps<T>) {
                 </thead>
                 <tbody>
                     {data.map((row, rowIndex) => (
-                        <tr key={rowIndex}>
+                        <tr key={rowIndex} style={getRowStyle ? getRowStyle(row) : {}}>
                             {columns.map((column, colIndex) => (
                                 <td key={colIndex} style={styles.td}>
                                     {column.render ? column.render(row) : row[column.key] as unknown as React.ReactNode}
