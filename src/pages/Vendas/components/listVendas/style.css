@@ -1,0 +1,93 @@
+.vendas-container {
+    width: 100%;
+    padding: 20px;
+}
+
+.tabs {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 20px;
+}
+
+.tab,
+.tab-active {
+    padding: 10px 20px;
+    cursor: pointer;
+}
+
+.tab-active {
+    border-bottom: 2px solid #000;
+    font-weight: bold;
+}
+
+.venda-card {
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    padding: 15px;
+    margin-bottom: 20px;
+    border-radius: 8px;
+}
+
+.venda-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.venda-id {
+    font-weight: bold;
+}
+
+.items-count {
+    font-size: 0.9em;
+    color: #555;
+}
+
+.venda-time {
+    font-size: 0.85em;
+    color: #999;
+}
+
+.venda-body {
+    margin-top: 10px;
+}
+
+.subvenda-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 5px 0;
+    border-bottom: 1px solid #eee;
+}
+
+.subvenda-receita {
+    flex: 1;
+    font-weight: 500;
+}
+
+.subvenda-quantidade,
+.subvenda-subtotal {
+    flex: 0.5;
+    text-align: right;
+}
+
+.venda-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 15px;
+    border-top: 1px solid #ddd;
+    padding-top: 10px;
+}
+
+.preco-total {
+    font-weight: bold;
+    font-size: 1.2em;
+}
+
+.status {
+    background-color: #4caf50;
+    color: #fff;
+    padding: 5px 10px;
+    border-radius: 5px;
+}
